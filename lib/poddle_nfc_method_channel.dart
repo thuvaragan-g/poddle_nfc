@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:poddle_nfc/src/poddle_nfc_android.dart';
 
 import 'poddle_nfc_platform_interface.dart';
 
@@ -11,7 +14,32 @@ class MethodChannelPoddleNfc extends PoddleNfcPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+    if (Platform.isIOS) {
+      final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+      return version;
+    } else {
+      // final availability = await PoddleNfcReader.onTagDiscovered()
+      // return availability.content;
+      // final enable = await PoddleNfcReader.enableReaderMode();
+      // if (enable.status != NFCStatus.reading) {
+
+      //   }
+
+      final value = await PoddleNfcReader.read();
+      return value.content;
+    }
+  }
+
+  @override
+  Stream<String?> getStreamNfcData() {
+    return PoddleNfcReader.onTagDiscovered().map((onData) {
+      return onData.content;
+    });
+  }
+
+  @override
+  Future<NFCStatus> writeNfc({required String path, required String lable}) async {
+    final value = await PoddleNfcReader.write(path, lable);
+    return value.status;
   }
 }

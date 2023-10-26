@@ -1,4 +1,5 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:poddle_nfc/src/poddle_nfc_android.dart';
 
 import 'poddle_nfc_method_channel.dart';
 
@@ -24,6 +25,14 @@ abstract class PoddleNfcPlatform extends PlatformInterface {
   }
 
   Future<String?> getPlatformVersion() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<NFCStatus?> writeNfc({required String path, required String lable}) {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Stream<String?> getStreamNfcData() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }
