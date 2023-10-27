@@ -88,6 +88,24 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  initAndroidNfcListener() {
+    try {
+      _poddleNfcPlugin.getStreamNfcData().listen((data) {
+        debugPrint(data);
+        setState(() {
+          _platformVersion = data ?? "";
+        });
+      });
+    } on PlatformException {
+      _platformVersion = 'Failed stram to get nfc.';
+    }
+  }
+
+  writeNFC() async {
+    final data = await _poddleNfcPlugin.writeNfc(path: "This is path...", lable: "this is lable text...");
+    debugPrint(data.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -1,5 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.poddle_nfc_example">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.NFC"/>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true"/>
+
    <application
         android:label="poddle_nfc_example"
         android:name="${applicationName}"
