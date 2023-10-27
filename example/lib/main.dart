@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
   initAndroidNfcListener() {
     try {
       _poddleNfcPlugin.getStreamNfcData().listen((data) {
-        print(data);
+        debugPrint(data);
         setState(() {
           _platformVersion = data ?? "";
         });
@@ -103,7 +103,7 @@ class _MyAppState extends State<MyApp> {
 
   writeNFC() async {
     final data = await _poddleNfcPlugin.writeNfc(path: "This is path...", lable: "this is lable text...");
-    print(data);
+    debugPrint(data.toString());
   }
 
   @override
