@@ -24,15 +24,19 @@ abstract class PoddleNfcPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<NFCAvailability?> isNFCAvailable() {
+    throw UnimplementedError('isNFCAvailable() has not been implemented.');
+  }
+
+  Future<String?> readNfc() {
+    throw UnimplementedError('readNfc() has not been implemented.');
   }
 
   Future<NFCStatus?> writeNfc({required String path, required String lable}) {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+    throw UnimplementedError('writeNfc() has not been implemented.');
   }
 
-  Stream<String?> getStreamNfcData() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Stream<String?> streamNfc() {
+    throw UnimplementedError('streamNfc() has not been implemented.');
   }
 }

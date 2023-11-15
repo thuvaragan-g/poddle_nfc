@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -84,23 +86,24 @@ class PoddleNfcReader {
     });
   }
 
-  static Future<Map> _callRead({instruction = String}) async {
+  static Future<Map> _callRead({String? instruction}) async {
     return await _channel.invokeMethod('NfcRead', <String, dynamic>{"instruction": instruction});
   }
 
   static Future<NfcData> write(String path, String label) async {
     final Map data = await _channel.invokeMethod('NfcWrite', <String, dynamic>{'label': label, 'path': path});
-
     final NfcData result = NfcData.fromMap(data);
-
     return result;
   }
 
-  static Future<NFCAvailability> checkNFCAvailability() async {
+  static Future<NFCAvailability> isNFCAvailable() async {
     var availability = "NFCAvailability.${await _channel.invokeMethod<String>("NfcAvailable")}";
     return NFCAvailability.values.firstWhere((item) => item.toString() == availability);
   }
 }
 
-// ignore: constant_identifier_names
-enum NFCAvailability { available, disabled, not_supported }
+enum NFCAvailability {
+  available,
+  disabled,
+  not_supported,
+}
