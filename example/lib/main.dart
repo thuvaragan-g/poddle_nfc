@@ -66,9 +66,9 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion = await _poddleNfcPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _poddleNfcPlugin.readNfc() ?? 'Unknown NFC Value.';
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      platformVersion = 'Failed to get NFC Value.';
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -90,14 +90,14 @@ class _MyAppState extends State<MyApp> {
 
   initAndroidNfcListener() {
     try {
-      _poddleNfcPlugin.getStreamNfcData().listen((data) {
+      _poddleNfcPlugin.streamNfc().listen((data) {
         debugPrint(data);
         setState(() {
           _platformVersion = data ?? "";
         });
       });
     } on PlatformException {
-      _platformVersion = 'Failed stram to get nfc.';
+      _platformVersion = 'Failed stream to get nfc.';
     }
   }
 
@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () => initPlatformState(),
+          onPressed: () => initAndroidNfcListener(),
         ),
         appBar: AppBar(
           title: const Text('Plugin example app'),

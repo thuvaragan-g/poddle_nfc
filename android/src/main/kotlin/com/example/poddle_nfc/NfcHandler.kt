@@ -118,7 +118,7 @@ private fun Tag.read(callback: (Map<*, *>) -> Unit) {
     ndef.connect()
     val ndefMessage = ndef.ndefMessage ?: ndef.cachedNdefMessage
     val message = ndefMessage.toByteArray()
-            .toString(Charsets.UTF_8)
+            .toString(Charsets.US_ASCII)
     val id = id.bytesToHexString()
     ndef.close()
     val data = mapOf(kId to id, kContent to message, kError to "", kStatus to "reading")

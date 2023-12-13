@@ -7,15 +7,20 @@ import 'package:poddle_nfc/src/poddle_nfc_android.dart';
 
 class MockPoddleNfcPlatform with MockPlatformInterfaceMixin implements PoddleNfcPlatform {
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<String?> readNfc() => Future.value('42');
 
   @override
-  Stream<String?> getStreamNfcData() {
+  Future<NFCStatus?> writeNfc({required String path, required String lable}) {
     throw UnimplementedError();
   }
 
   @override
-  Future<NFCStatus?> writeNfc({required String path, required String lable}) {
+  Stream<String?> streamNfc() {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<NFCAvailability?> isNFCAvailable() {
     throw UnimplementedError();
   }
 }
@@ -32,6 +37,6 @@ void main() {
     MockPoddleNfcPlatform fakePlatform = MockPoddleNfcPlatform();
     PoddleNfcPlatform.instance = fakePlatform;
 
-    expect(await poddleNfcPlugin.getPlatformVersion(), '42');
+    expect(await poddleNfcPlugin.readNfc(), '42');
   });
 }
