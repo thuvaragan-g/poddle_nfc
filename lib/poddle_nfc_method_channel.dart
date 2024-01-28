@@ -40,4 +40,11 @@ class MethodChannelPoddleNfc extends PoddleNfcPlatform {
     final value = await PoddleNfcReader.write(path, lable);
     return value.status;
   }
+
+  @override
+  Future<void> stopNfc() async {
+    if (Platform.isAndroid) {
+      await PoddleNfcReader.stop();
+    }
+  }
 }

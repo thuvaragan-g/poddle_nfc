@@ -23,6 +23,11 @@ class MockPoddleNfcPlatform with MockPlatformInterfaceMixin implements PoddleNfc
   Future<NFCAvailability?> isNFCAvailable() {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> stopNfc() {
+    throw UnimplementedError();
+  }
 }
 
 void main() {
