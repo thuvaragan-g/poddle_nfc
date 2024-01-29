@@ -20,4 +20,8 @@ class PoddleNfc {
   Future<NFCAvailability?> isNFCAvailable() {
     return PoddleNfcPlatform.instance.isNFCAvailable();
   }
+
+  Future<void> stopNfc() {
+    return PoddleNfcPlatform.instance.stopNfc();
+  }
 }
