@@ -45,6 +45,9 @@ public class PoddleNfcPlugin: NSObject, FlutterPlugin, NFCNDEFReaderSessionDeleg
        
        
     public func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+         // Set an alert message to guide the user
+            session.alertMessage = "Hold your iPhone near a writable NFC tag to update."
+        
            var result = ""
            for payload in messages[0].records{
                result += String.init (data: payload.payload, encoding: .ascii) ?? "Format not supported"
