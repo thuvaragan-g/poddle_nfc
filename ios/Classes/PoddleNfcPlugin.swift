@@ -41,7 +41,7 @@ public class PoddleNfcPlugin: NSObject, FlutterPlugin, NFCNDEFReaderSessionDeleg
        func ScantnAction() {
            nfcSession = NFCNDEFReaderSession.init(delegate: self, queue: nil, invalidateAfterFirstRead: true)
            // Set an alert message to guide the user
-           nfcSession?.alertMessage = "Tap your phone on a staff member's poddle tag to redeem."
+           nfcSession?.alertMessage = "Ask a staff member to tap their poddle Smartcard here."
            nfcSession?.begin()
        }
        
