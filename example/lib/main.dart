@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   writeNFC() async {
-    final data = await _poddleNfcPlugin.writeNfc(path: "This is path...", lable: "this is lable text...");
+    final data = await _poddleNfcPlugin.writeNfc(path: "Check the writer", lable: "this is checker");
     debugPrint(data.toString());
   }
 
@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () => initAndroidNfcListener(),
+          onPressed: () => writeNFC(),
         ),
         appBar: AppBar(
           title: const Text('Plugin example app'),

@@ -1,5 +1,6 @@
 package com.example.poddle_nfc
 
+import android.net.Uri
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
@@ -25,13 +26,16 @@ sealed class AbstractNfcHandler(protected val result: MethodChannel.Result, prot
 
 @RequiresApi(Build.VERSION_CODES.KITKAT)
 class NfcWriter(result: MethodChannel.Result, call: MethodCall) : AbstractNfcHandler(result, call) {
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onTagDiscovered(tag: Tag) {
         val type = call.argument<String>("path")
                 ?: return result.error("404", "Missing parameter", null)
         val payload = call.argument<String>("label")
                 ?: return result.error("404", "Missing parameter", null)
-        val nfcRecord = NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, type.toByteArray(), byteArrayOf(), payload.toByteArray())
-        val nfcMessage = NdefMessage(arrayOf(nfcRecord))
+//        val nfcRecord = NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, type.toByteArray(), byteArrayOf(), payload.toByteArray())
+        val uri = Uri.parse(payload)
+        val record = NdefRecord.createUri(uri)
+        val nfcMessage = NdefMessage(arrayOf(record))
         writeMessageToTag(nfcMessage, tag)
         val data = mapOf(kId to "", kContent to payload, kError to "", kStatus to "write")
         val mainHandler = Handler(Looper.getMainLooper())
